@@ -1,6 +1,6 @@
 package service
 
-import "go-book-inventory/repository"
+import "miiboard-service/repository"
 
 type Controller struct {
 	repo repository.BookRepository
@@ -9,5 +9,3 @@ type Controller struct {
 func NewController(br repository.BookRepository) *Controller {
 	return &Controller{repo: br}
 }
-
-

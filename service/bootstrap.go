@@ -2,9 +2,9 @@ package service
 
 import (
 	"context"
-	"go-book-inventory/repository"
 	"log"
 	"math/rand"
+	"miiboard-service/repository"
 	"net/http"
 	"os"
 	"os/signal"
@@ -12,6 +12,9 @@ import (
 	"time"
 )
 
+/**
+Bootstrap...
+*/
 func Bootstrap() {
 	ctx, done := context.WithCancel(context.Background())
 	rand.Seed(time.Now().UnixNano())
@@ -24,11 +27,11 @@ func Bootstrap() {
 		done()
 	}()
 
-	c:=NewController(*repository.NewBookRepository())
+	c := NewController(*repository.NewBookRepository())
 
 	rte := NewRouter()
 	rte.AddRoute(http.MethodGet, "/health", c.healthHandler)
-	rte.AddRoute(http.MethodPost,"/books",c.booksHandler)
+	rte.AddRoute(http.MethodPost, "/books", c.booksHandler)
 
 	server := http.Server{
 		Addr:    ":8000",

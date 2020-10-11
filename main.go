@@ -1,6 +1,6 @@
 package main
 
-import "go-book-inventory/service"
+import "miiboard-service/service"
 
 func main() {
 	service.Bootstrap()

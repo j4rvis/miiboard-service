@@ -3,8 +3,8 @@ package repository
 import (
 	"container/list"
 	"fmt"
-	"go-book-inventory/models"
 	"math/rand"
+	"miiboard-service/models"
 	"strings"
 	"time"
 )
@@ -20,7 +20,7 @@ func NewBookRepository() *BookRepository {
 }
 
 func (br *BookRepository) AddBook(b models.Book) models.Book {
-	b.Id=GenerateObjectId()
+	b.Id = GenerateObjectId()
 	br.bookList.PushBack(b)
 	return b
 }
@@ -28,8 +28,8 @@ func (br *BookRepository) AddBook(b models.Book) models.Book {
 func GenerateObjectId() string {
 	oidBuilder := strings.Builder{}
 	oidBuilder.WriteString(fmt.Sprintf("%12x", time.Now().UnixNano()/1000))
-	len:=oidBuilder.Len()
-	for n:=0; n<24-len; n++ {
+	len := oidBuilder.Len()
+	for n := 0; n < 24-len; n++ {
 		oidBuilder.WriteRune(hexChars[rand.Intn(15)])
 	}
 	return oidBuilder.String()

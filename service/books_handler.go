@@ -3,8 +3,8 @@ package service
 import (
 	"encoding/json"
 	"fmt"
-	"go-book-inventory/models"
 	"io/ioutil"
+	"miiboard-service/models"
 	"net/http"
 )
 
@@ -24,7 +24,7 @@ func (c Controller) booksHandler(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(errStr))
 		return
 	}
-	createdBook:=c.repo.AddBook(book)
+	createdBook := c.repo.AddBook(book)
 	var marshalledBook []byte
 	marshalledBook, err = json.Marshal(createdBook)
 	if err != nil {
