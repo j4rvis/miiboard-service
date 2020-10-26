@@ -5,18 +5,20 @@ import (
 	"miiboard-service/repository"
 )
 
-type DashboardUsecase interface {
+// DashboardUseCase ...
+type DashboardUseCase interface {
 	GetByID(id int64) (model.Dashboard, error)
 }
 
-type dashboardUseCases struct {
+type dashboardUseCase struct {
 	dashboards repository.DashboardRepository
 }
 
-func NewDashboardUseCase(repository repository.DashboardRepository) DashboardUsecase {
-	return &dashboardUseCases{repository}
+// NewDashboardUseCase ...
+func NewDashboardUseCase(repository repository.DashboardRepository) DashboardUseCase {
+	return &dashboardUseCase{repository}
 }
 
-func (d DashboardUsecase) GetByID(id int64) (model.Dashboard, error) {
+func (d *dashboardUseCase) GetByID(id int64) (model.Dashboard, error) {
 
 }

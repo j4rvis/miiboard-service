@@ -1,6 +1,6 @@
 package repository
 
-import "dashboard-service/model"
+import "miiboard-service/model"
 
 // DashboardRepository ...
 type DashboardRepository interface {
