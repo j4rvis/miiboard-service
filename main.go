@@ -1,7 +1,7 @@
 package main
 
-import "miiboard-service/service"
+import "fmt"
 
 func main() {
-	service.Bootstrap()
+	fmt.Println("Dashboard Service")
 }
