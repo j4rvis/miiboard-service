@@ -1,6 +1,9 @@
 package repository
 
-import "miiboard-service/model"
+import (
+	"database/sql"
+	"miiboard-service/model"
+)
 
 // DashboardRepository ...
 type DashboardRepository interface {
@@ -9,3 +12,12 @@ type DashboardRepository interface {
 	Save(model.Dashboard) (model.Dashboard, error)
 	Delete(model.Dashboard) error
 }
+
+type dashboardRepository struct {
+	db *sql.DB
+}
+
+/* func (repo dashboardRepository) GetByID(id int64) (model.Dashboard, error) {
+
+}
+*/

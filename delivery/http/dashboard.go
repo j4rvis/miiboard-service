@@ -1,17 +1,22 @@
 package delivery
 
 import (
+	"miiboard-service/usecase"
 	"net/http"
-
-	"github.com/go-chi/chi"
 )
 
 // DashboardHandler ...
-type DashboardHandler interface {
-	Routes() *chi.Mux
-	getDashboard(http.ResponseWriter, *http.Request)
-	getAllDashboards(http.ResponseWriter, *http.Request)
-	addDashboard(http.ResponseWriter, *http.Request)
-	updateDashboard(http.ResponseWriter, *http.Request)
-	deleteDashboard(http.ResponseWriter, *http.Request)
+type DashboardHandler struct {
+	dashboardUseCase usecase.DashboardUseCase
+}
+
+// NewDashboardHandler ...
+func NewDashboardHandler(duc usecase.DashboardUseCase) *DashboardHandler {
+	return &DashboardHandler{duc}
+}
+
+// GetDashboard ...
+func (h *DashboardHandler) GetDashboard(w http.ResponseWriter, request *http.Request) {
+	w.Write([]byte("Hello"))
+	return
 }

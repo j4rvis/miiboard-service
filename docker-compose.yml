@@ -1,16 +1,41 @@
 # Use postgres/example user/password credentials
-version: '3.1'
+version: '3.3'
+
+# services:
+#   db:
+#     image: postgres
+#     restart: always
+#     environment:
+#       POSTGRES_PASSWORD: example
+
+#   adminer:
+#     image: adminer
+#     restart: always
+#     ports:
+#       - 8080:8080
 
 services:
-
   db:
-    image: postgres
+    image: mysql
+    volumes:
+      - db_data:/var/lib/mysql
     restart: always
     environment:
-      POSTGRES_PASSWORD: example
+      MYSQL_ROOT_PASSWORD: rootpw
+      MYSQL_DATABASE: database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+
+  api:
+    image: 
+    restart: always
+    depends_on: db
 
   adminer:
     image: adminer
     restart: always
     ports:
       - 8080:8080
+  
+volumes:
+    db_data: {}

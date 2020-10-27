@@ -10,15 +10,21 @@ type DashboardUseCase interface {
 	GetByID(id int64) (model.Dashboard, error)
 }
 
+// DashboardUseCase ...
 type dashboardUseCase struct {
-	dashboards repository.DashboardRepository
+	repo repository.DashboardRepository
 }
 
 // NewDashboardUseCase ...
 func NewDashboardUseCase(repository repository.DashboardRepository) DashboardUseCase {
-	return &dashboardUseCase{repository}
+	return dashboardUseCase{repository}
 }
 
-func (d *dashboardUseCase) GetByID(id int64) (model.Dashboard, error) {
-
+// GetByID ...
+func (d dashboardUseCase) GetByID(id int64) (model.Dashboard, error) {
+	dashboard, err := d.repo.GetByID(id)
+	if err != nil {
+		return model.Dashboard{}, err
+	}
+	return dashboard, nil
 }
