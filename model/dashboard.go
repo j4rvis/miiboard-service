@@ -1,7 +1,11 @@
 package model
 
+import "time"
+
 // Dashboard ...
 type Dashboard struct {
-	ID    int64  `json:"id"`
-	Title string `json:"title"`
+	ID        string    `json:"id"`
+	Title     string    `json:"title"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }

@@ -2,9 +2,13 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"math/rand"
 	delivery "miiboard-service/delivery/http"
+	"miiboard-service/repository"
+	"miiboard-service/repository/sql"
+	"miiboard-service/usecase"
 	"net/http"
 	"os"
 	"os/signal"
@@ -12,9 +16,18 @@ import (
 	"time"
 
 	"github.com/go-chi/chi"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	godotenv.Load()
+	var (
+		apiPort    = os.Getenv("API_PORT")
+		dbHost     = os.Getenv("DB_HOST")
+		dbUser     = os.Getenv("DB_USER")
+		dbPassword = os.Getenv("DB_PASSWORD")
+		dbName     = os.Getenv("DB_NAME")
+	)
 	ctx, done := context.WithCancel(context.Background())
 	rand.Seed(time.Now().UnixNano())
 	signalChannel := make(chan os.Signal, 1)
@@ -28,8 +41,11 @@ func main() {
 
 	router := chi.NewRouter()
 
-	// usecase := usecase.DashboardUseCase(nil)
-	dashboardHandler := delivery.NewDashboardHandler(nil)
+	log.Println(apiPort)
+
+	repository := repository.NewDashboardRepository(sql.NewDB(dbHost, dbUser, dbPassword, dbName))
+	usecase := usecase.DashboardUseCase(repository)
+	dashboardHandler := delivery.NewDashboardHandler(usecase)
 
 	router.Route("/", func(r chi.Router) {
 		r.MethodFunc(http.MethodGet, "/dashboard/{id}", dashboardHandler.GetDashboard)
@@ -37,8 +53,8 @@ func main() {
 	})
 
 	server := http.Server{
+		Addr:    fmt.Sprintf(":%v", apiPort),
 		Handler: router,
-		Addr:    ":8081",
 	}
 
 	go func() {

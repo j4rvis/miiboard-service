@@ -7,7 +7,7 @@ import (
 
 // DashboardUseCase ...
 type DashboardUseCase interface {
-	GetByID(id int64) (model.Dashboard, error)
+	GetByID(id string) (model.Dashboard, error)
 }
 
 // DashboardUseCase ...
@@ -21,7 +21,7 @@ func NewDashboardUseCase(repository repository.DashboardRepository) DashboardUse
 }
 
 // GetByID ...
-func (d dashboardUseCase) GetByID(id int64) (model.Dashboard, error) {
+func (d dashboardUseCase) GetByID(id string) (model.Dashboard, error) {
 	dashboard, err := d.repo.GetByID(id)
 	if err != nil {
 		return model.Dashboard{}, err
